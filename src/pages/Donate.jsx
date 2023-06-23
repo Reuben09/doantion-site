@@ -2,9 +2,11 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import client from "../../client"
+import { paywithBudPay } from '../components/BudPaymentButton';
 
 const Donate = () => {
     const [singlePost, setSinglePost] = useState();
+    const [amount, setAmount] = useState();
     const params = useParams(); 
     const slug = params.slug;
 
@@ -41,10 +43,19 @@ py-8 px-4" style={{width: "75%"}}>
                     src={singlePost?.mainImage.asset.url} />
             </div>
             <div>
-            <div className="mt-8 lg:mt-12 flex justify-center items-center lg:justify-start align-center lg:items-start flex-col">
+            <div className="flex justify-center items-center lg:justify-start align-center lg:items-start flex-col">
                 <h5 className="mb-4 text-center lg:text-left lg:ml-4 text-xl font-semibold">{singlePost?.title}</h5>
                 <p className="mb-8 text-center lg:text-left  lg:ml-4">{singlePost?.description}</p>
-                <button class="bg-gray-600 text-center hover:bg-blue-700 w-40 text-white font-bold py-2 mx-4 rounded">
+                <input
+                required
+                type="text"
+                value={amount}
+                onChange={(e)=> setAmount(e.target.value)}
+                placeholder="Input an amount"
+                style={{ border: "1px solid rgb(107, 114, 128)" }}
+                className="mb-6 text-center w-52 py-3 mb-2 mx-4 rounded bg-transparent text-sm outline-0"
+              />
+                <button onClick={()=>paywithBudPay(amount)} class="bg-gray-600 text-center hover:bg-blue-700 w-40 text-white font-bold py-2 mx-4 rounded">
                  Donate now
                 </button>
             </div>
